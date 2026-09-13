@@ -1,6 +1,6 @@
 # AST Green-Code Engine
 
-The AST Green-Code Engine is a shared static-analysis and refactoring system for JavaScript and TypeScript. It identifies energy-related anti-patterns, provides source-to-source rewrites, exposes the same engine through a VS Code extension, and provides a browser dashboard for batch uploads and optional Chromium telemetry.
+The AST Green-Code Engine is a shared static-analysis and refactoring system for JavaScript and TypeScript. It identifies energy-related anti-patterns, provides source-to-source rewrites, exposes the same engine through a VS Code extension, and provides a browser dashboard for batch uploads and Chromium telemetry.
 
 ## Architecture
 
@@ -22,7 +22,7 @@ npm test
 npm run dev
 ```
 
-Open `http://localhost:4173`. The server binds to `0.0.0.0` and accepts `PORT` for deployment. The `puppeteer` package is intentionally optional in the base install; installing it enables `/api/benchmark` to collect Chrome DevTools Protocol `TaskDuration`, `JSHeapUsedSize`, and `LayoutCount` metrics.
+Open `http://localhost:4173`. The server binds to `0.0.0.0` and accepts `PORT` for deployment. The declared `puppeteer` dependency enables `/api/benchmark` to collect Chrome DevTools Protocol `TaskDuration`, `JSHeapUsedSize`, and `LayoutCount` metrics.
 
 ## VS Code packaging
 
@@ -31,3 +31,11 @@ The extension manifest is in `src/extension/package.json`. After compiling, pack
 ## Safety and limitations
 
 Refactoring is deliberately conservative. DOM caching is applied when the loop is directly inside a block or program scope. Event listeners are wrapped with a generated throttle helper. Heavy array traversals are reported with an explanatory suggestion but are not rewritten automatically because loop fusion requires domain-specific semantics. Benchmark execution must be treated as untrusted-code execution and should be isolated in a container in production.
+
+## Verification
+
+The repository includes unit tests for the core detector/refactoring behavior and integration tests for the dashboard health, analysis, and invalid-source paths. Run `npm test` to execute them. Run `npm run build` to compile the dashboard and extension. Run `npm run package:extension` to produce `ast-green-code-engine.vsix` after compilation.
+
+The dashboard provides a Canvas-based performance visualization. The visualization displays before/after finding counts and score after refactoring, as well as Chrome DevTools Protocol values for main-thread task time, JavaScript heap usage, and DOM layout count.
+
+The packaged extension artifact is `ast-green-code-engine.vsix`. Install it from VS Code with **Extensions → More Actions → Install from VSIX**.

@@ -49,7 +49,7 @@ Set `NODE_ENV=production`. Bind the service to the platform-provided `PORT`; the
 
 ## Benchmarking support
 
-The `/api/benchmark` route attempts to load Puppeteer dynamically. The base deployment remains lightweight and returns a clear fallback response when Puppeteer is not installed. To enable Chromium CDP telemetry, add `puppeteer` to `dependencies`, install it during the build, and ensure the host provides the required Chromium libraries. For production use, execute uploaded or benchmarked code inside an isolated container with resource and time limits.
+The `/api/benchmark` route uses Puppeteer and Chrome DevTools Protocol to collect main-thread task time, JavaScript heap usage, and DOM layout counts. The standard `npm ci` installation includes Puppeteer and downloads a compatible Chromium build. For production use, execute uploaded or benchmarked code inside an isolated container with resource and time limits.
 
 ## VS Code extension
 
