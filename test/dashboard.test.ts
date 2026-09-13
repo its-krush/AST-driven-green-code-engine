@@ -6,6 +6,12 @@ describe('dashboard API', () => {
   let base: string;
   beforeAll(async () => { server = http.createServer(app); await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve)); const address = server.address() as any; base = `http://127.0.0.1:${address.port}`; });
   afterAll(async () => { await new Promise<void>(resolve => server.close(() => resolve())); });
+  test('serves the dashboard at the root URL', async () => {
+    const response = await fetch(`${base}/`);
+    const html = await response.text();
+    expect(response.status).toBe(200);
+    expect(html).toContain('AST Green-Code Engine');
+  });
   test('reports health and analyzes source', async () => {
     const health = await fetch(`${base}/api/health`);
     expect(health.status).toBe(200);
