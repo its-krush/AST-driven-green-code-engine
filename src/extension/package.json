@@ -1,0 +1,11 @@
+{
+  "name": "ast-green-code-engine",
+  "displayName": "AST Green-Code Engine",
+  "description": "Detect and refactor energy anti-patterns in JavaScript and TypeScript.",
+  "version": "1.0.0",
+  "publisher": "green-code-labs",
+  "engines": { "vscode": ">=1.85.0" },
+  "main": "../../dist/extension/extension.js",
+  "activationEvents": ["onLanguage:javascript", "onLanguage:typescript", "onCommand:greenCode.openCompanion"],
+  "contributes": { "commands": [{ "command": "greenCode.openCompanion", "title": "Green-Code: Open Companion" }], "configuration": { "title": "AST Green-Code Engine", "properties": { "greenCode.autoAnalyze": { "type": "boolean", "default": true } } } }
+}
