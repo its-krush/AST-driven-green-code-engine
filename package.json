@@ -4,7 +4,7 @@
   "private": true,
   "description": "AST-driven static refactoring for energy-efficient JavaScript and TypeScript execution",
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.json && mkdir -p dist/dashboard/public dist/extension/webview && cp src/dashboard/public/index.html dist/dashboard/public/index.html && cp src/extension/webview/companion.js dist/extension/webview/companion.js",
+    "build": "node scripts/build.cjs",
     "test": "jest --runInBand",
     "dev": "tsx src/dashboard/server.ts",
     "start": "node dist/dashboard/server.js",
@@ -17,7 +17,7 @@
     "@babel/types": "^7.26.9",
     "express": "^4.21.2",
     "multer": "^1.4.5-lts.1",
-    "puppeteer": "^24.43.1",
+    "puppeteer": "^24.23.0",
     "unzipper": "^0.12.3"
   },
   "devDependencies": {

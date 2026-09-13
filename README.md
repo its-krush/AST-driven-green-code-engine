@@ -39,3 +39,27 @@ The repository includes unit tests for the core detector/refactoring behavior an
 The dashboard provides a Canvas-based performance visualization. The visualization displays before/after finding counts and score after refactoring, as well as Chrome DevTools Protocol values for main-thread task time, JavaScript heap usage, and DOM layout count.
 
 The packaged extension artifact is `ast-green-code-engine.vsix`. Install it from VS Code with **Extensions → More Actions → Install from VSIX**.
+
+## Windows setup
+
+The project uses Node-based build scripts and does not require Bash, `rm`, `cp`, or other Unix commands. In PowerShell, run:
+
+```powershell
+git clone https://github.com/its-krush/AST-driven-green-code-engine.git
+Set-Location AST-driven-green-code-engine
+npm ci
+npm run build
+npm test
+npm start
+```
+
+Open `http://localhost:4173`. If Puppeteer cannot download Chromium because of a corporate proxy, install dependencies without the browser download, then set `PUPPETEER_EXECUTABLE_PATH` to an installed Chrome executable:
+
+```powershell
+$env:PUPPETEER_SKIP_DOWNLOAD="true"
+npm ci
+$env:PUPPETEER_EXECUTABLE_PATH="C:\Program Files\Google\Chrome\Application\chrome.exe"
+npm start
+```
+
+If `npm ci` reports a lockfile mismatch, remove `node_modules` and `package-lock.json`, then run `npm install` once. Commit the regenerated lockfile only if the dependency versions were intentionally changed.
