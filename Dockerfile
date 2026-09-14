@@ -9,6 +9,7 @@ RUN npm ci --omit=dev
 
 COPY tsconfig.json jest.config.cjs README.md ./
 COPY src ./src
+COPY scripts ./scripts
 RUN npm run build
 
 EXPOSE 4173
